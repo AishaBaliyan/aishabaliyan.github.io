@@ -502,18 +502,21 @@
             flex-direction: column;
             gap: 2rem;
             position: relative;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .flow-step {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 2rem;
-            padding: 1.5rem;
+            padding: 2rem;
             background: rgba(0, 245, 255, 0.05);
             border-radius: 15px;
             border: 1px solid rgba(0, 245, 255, 0.2);
             transition: all 0.3s ease;
             position: relative;
+            min-height: 140px;
         }
 
         .flow-step:hover {
@@ -571,15 +574,20 @@
             left: 100%;
         }
 
+        .flow-content {
+            flex: 1;
+        }
+
         .flow-content h3 {
             color: #00f5ff;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
 
         .flow-content p {
             opacity: 0.9;
-            line-height: 1.5;
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
         /* Process Section */
