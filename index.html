@@ -240,33 +240,32 @@
         .architecture-diagram {
             background: linear-gradient(135deg, #001122, #000);
             border-radius: 20px;
-            padding: 3rem;
+            padding: 4rem 2rem;
             margin: 3rem 0;
             border: 1px solid rgba(0, 245, 255, 0.3);
         }
 
         .architecture-flow {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: nowrap;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            width: 100%;
-            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+            position: relative;
         }
 
         .arch-node {
             background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(0, 128, 255, 0.1));
             border: 2px solid rgba(0, 245, 255, 0.3);
             border-radius: 15px;
-            padding: 2rem 1.5rem;
+            padding: 2rem 1rem;
             text-align: center;
-            flex: 1;
-            max-width: 200px;
-            min-width: 160px;
             position: relative;
             transition: all 0.3s ease;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .arch-node:hover {
@@ -276,15 +275,15 @@
         }
 
         .arch-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: linear-gradient(45deg, #00f5ff, #0080ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
             color: #000;
             font-weight: bold;
             position: relative;
@@ -307,57 +306,80 @@
         }
 
         .arch-node h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
             color: #00f5ff;
-            line-height: 1.3;
+            line-height: 1.2;
         }
 
         .arch-node p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             opacity: 0.9;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
-        .arch-node::after {
+        /* Professional connecting lines */
+        .architecture-flow::before {
             content: '';
             position: absolute;
-            right: -25px;
             top: 50%;
-            transform: translateY(-50%);
-            width: 0;
-            height: 0;
-            border-left: 25px solid #00f5ff;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            opacity: 0.9;
-            filter: drop-shadow(0 0 15px rgba(0, 245, 255, 0.6));
-            animation: arrowFlow 3s infinite ease-in-out;
-        }
-
-        @keyframes arrowFlow {
-            0%, 100% {
-                opacity: 0.7;
-                transform: translateY(-50%) translateX(0px);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(-50%) translateX(10px);
-            }
-        }
-
-        .arch-node::before {
-            content: '';
-            position: absolute;
-            right: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 6px;
-            background: linear-gradient(90deg, #00f5ff, rgba(0, 245, 255, 0.3));
-            border-radius: 3px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 10%, 
+                #00f5ff 10%, 
+                #00f5ff 23%, 
+                transparent 23%, 
+                transparent 27%, 
+                #00f5ff 27%, 
+                #00f5ff 40%, 
+                transparent 40%, 
+                transparent 44%, 
+                #00f5ff 44%, 
+                #00f5ff 57%, 
+                transparent 57%, 
+                transparent 61%, 
+                #00f5ff 61%, 
+                #00f5ff 74%, 
+                transparent 74%, 
+                transparent 78%, 
+                #00f5ff 78%, 
+                #00f5ff 90%, 
+                transparent 90%
+            );
             z-index: -1;
-            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            opacity: 0.6;
+        }
+
+        /* Animated dots on the connecting line */
+        .architecture-flow::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: #00f5ff;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            animation: flowDot 4s infinite linear;
+            box-shadow: 0 0 10px rgba(0, 245, 255, 0.8);
+        }
+
+        @keyframes flowDot {
+            0% { left: 10%; opacity: 1; }
+            24% { left: 23%; opacity: 1; }
+            25% { left: 27%; opacity: 0; }
+            26% { left: 27%; opacity: 1; }
+            49% { left: 40%; opacity: 1; }
+            50% { left: 44%; opacity: 0; }
+            51% { left: 44%; opacity: 1; }
+            74% { left: 57%; opacity: 1; }
+            75% { left: 61%; opacity: 0; }
+            76% { left: 61%; opacity: 1; }
+            90% { left: 90%; opacity: 1; }
+            100% { left: 90%; opacity: 0; }
         }
 
         .arch-node:last-child::after,
