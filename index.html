@@ -988,7 +988,127 @@
             }
         }
 
-        /* Mobile Responsiveness */
+        /* Custom Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: linear-gradient(135deg, #001122, #000511);
+            border: 2px solid #00f5ff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.7);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-overlay.show .modal {
+            transform: scale(1);
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .modal:hover::before {
+            left: 100%;
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.8rem;
+            color: #fff;
+            animation: pulse 2s infinite;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #00f5ff;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .modal-message {
+            color: #fff;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        .modal-button {
+            background: linear-gradient(45deg, #00f5ff, #0080ff);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Success Modal Variant */
+        .modal.success .modal-icon {
+            background: linear-gradient(45deg, #00ff80, #00f5ff);
+        }
+
+        /* Animations */
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-overlay.show .modal {
+            animation: modalSlideIn 0.4s ease-out;
+        }
         @media (max-width: 768px) {
             .cta-title {
                 font-size: 2.2rem;
@@ -1458,6 +1578,16 @@
         </div>
     </section>
 
+    <!-- Custom Modal -->
+    <div id="customModal" class="modal-overlay">
+        <div class="modal" id="modalContent">
+            <div class="modal-icon" id="modalIcon">!</div>
+            <h3 class="modal-title" id="modalTitle">Oops!</h3>
+            <p class="modal-message" id="modalMessage">Please fill in all required fields to continue.</p>
+            <button class="modal-button" onclick="closeModal()">Got it!</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 SoloLaunch. Building the future of iOS app development with AI.</p>
@@ -1498,10 +1628,80 @@
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll(); // Run once on load
 
-        // Form submission
+        // Custom Modal Functions
+        function showModal(title, message, type = 'error') {
+            const modal = document.getElementById('customModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalIcon = document.getElementById('modalIcon');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            
+            if (type === 'success') {
+                modalContent.classList.add('success');
+                modalIcon.textContent = '✓';
+            } else {
+                modalContent.classList.remove('success');
+                modalIcon.textContent = '!';
+            }
+            
+            modal.classList.add('show');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('customModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('customModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Form submission with custom modal
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you for your interest! We\'ll contact you within 24 hours to discuss your app idea.');
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const appIdea = document.getElementById('app-idea').value.trim();
+            
+            if (!name || !email || !appIdea) {
+                showModal(
+                    'Missing Information', 
+                    'Please fill in all fields before submitting your request. We need your name, email, and app idea to get started!',
+                    'error'
+                );
+                return;
+            }
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showModal(
+                    'Invalid Email', 
+                    'Please enter a valid email address so we can contact you about your app project.',
+                    'error'
+                );
+                return;
+            }
+            
+            // Success message
+            showModal(
+                'Request Submitted!', 
+                'Thank you for your interest! We\'ll review your app idea and contact you within 24 hours to discuss the next steps.',
+                'success'
+            );
+            
+            // Reset form after successful submission
+            setTimeout(() => {
+                this.reset();
+                closeModal();
+            }, 3000);
         });
 
         // Enhanced hover effects
