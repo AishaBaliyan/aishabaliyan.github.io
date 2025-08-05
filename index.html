@@ -329,6 +329,35 @@
             font-size: 0.9rem;
             color: #000;
             font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .arch-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+
+        .arch-node:hover .arch-icon::before {
+            left: 100%;
+        }
+
+        .arch-icon::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+            opacity: 0.6;
         }
 
         .arch-node:hover {
@@ -338,14 +367,42 @@
         }
 
         .arch-node::after {
-            content: '→';
+            content: '';
             position: absolute;
-            right: -1.5rem;
+            right: -25px;
             top: 50%;
             transform: translateY(-50%);
-            color: #00f5ff;
-            font-size: 1.2rem;
-            opacity: 0.7;
+            width: 0;
+            height: 0;
+            border-left: 12px solid #00f5ff;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 6px rgba(0, 245, 255, 0.4));
+            animation: arrowPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% {
+                opacity: 0.6;
+                transform: translateY(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-50%) scale(1.1);
+            }
+        }
+
+        .arch-node::before {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #00f5ff, rgba(0, 245, 255, 0.3));
+            z-index: -1;
         }
 
         .arch-node:last-child::after {
@@ -557,10 +614,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #000;
             font-weight: bold;
             flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flow-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .flow-step:hover .flow-icon::before {
+            left: 100%;
         }
 
         .flow-content h3 {
@@ -1223,27 +1297,27 @@
         <h2 class="section-title">How Our AI System Works</h2>
         <div class="architecture-flow">
             <div class="arch-node">
-                <div class="arch-icon">💡</div>
+                <div class="arch-icon">1</div>
                 <h3>Your Idea</h3>
                 <p>Submit your app concept</p>
             </div>
             <div class="arch-node">
-                <div class="arch-icon">⚡</div>
+                <div class="arch-icon">2</div>
                 <h3>AI Analysis</h3>
                 <p>Our AI analyzes requirements</p>
             </div>
             <div class="arch-node">
-                <div class="arch-icon">📐</div>
+                <div class="arch-icon">3</div>
                 <h3>Design Generation</h3>
                 <p>Automated Figma designs</p>
             </div>
             <div class="arch-node">
-                <div class="arch-icon">⚙️</div>
+                <div class="arch-icon">4</div>
                 <h3>Code Development</h3>
                 <p>AI writes Swift/SwiftUI</p>
             </div>
             <div class="arch-node">
-                <div class="arch-icon">🚀</div>
+                <div class="arch-icon">5</div>
                 <h3>App Store Ready</h3>
                 <p>Published & marketed</p>
             </div>
@@ -1319,42 +1393,42 @@
         <h2 class="section-title">Detailed Development Process</h2>
         <div class="flow-container">
             <div class="flow-step">
-                <div class="flow-icon">📋</div>
+                <div class="flow-icon">01</div>
                 <div class="flow-content">
                     <h3>Requirements Gathering</h3>
                     <p>Our AI conducts an intelligent analysis of your app idea, target audience, and feature requirements. We identify the core functionality and create a comprehensive development roadmap.</p>
                 </div>
             </div>
             <div class="flow-step">
-                <div class="flow-icon">📐</div>
+                <div class="flow-icon">02</div>
                 <div class="flow-content">
                     <h3>AI-Generated Design</h3>
                     <p>Advanced design algorithms create professional Figma mockups with modern UI/UX patterns. Every screen is optimized for iOS guidelines and user engagement.</p>
                 </div>
             </div>
             <div class="flow-step">
-                <div class="flow-icon">⚙️</div>
+                <div class="flow-icon">03</div>
                 <div class="flow-content">
                     <h3>Code Generation</h3>
                     <p>Our proprietary AI writes clean, optimized Swift and SwiftUI code. The app is built with scalability, performance, and App Store guidelines in mind.</p>
                 </div>
             </div>
             <div class="flow-step">
-                <div class="flow-icon">🔧</div>
+                <div class="flow-icon">04</div>
                 <div class="flow-content">
                     <h3>Integration & Testing</h3>
                     <p>Payment systems, analytics, and cloud services are automatically integrated. Comprehensive testing ensures bug-free performance across all iOS devices.</p>
                 </div>
             </div>
             <div class="flow-step">
-                <div class="flow-icon">🚀</div>
+                <div class="flow-icon">05</div>
                 <div class="flow-content">
                     <h3>App Store Deployment</h3>
                     <p>We handle the entire App Store submission process, from metadata optimization to review approval. Your app goes live with zero effort from you.</p>
                 </div>
             </div>
             <div class="flow-step">
-                <div class="flow-icon">📊</div>
+                <div class="flow-icon">06</div>
                 <div class="flow-content">
                     <h3>Marketing Launch</h3>
                     <p>Organic TikTok marketing campaigns drive initial downloads. We create engaging content that showcases your app's unique value proposition.</p>
