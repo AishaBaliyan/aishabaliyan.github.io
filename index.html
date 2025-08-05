@@ -516,7 +516,7 @@
             border: 1px solid rgba(0, 245, 255, 0.2);
             transition: all 0.3s ease;
             position: relative;
-            min-height: 140px;
+            height: 160px;
         }
 
         .flow-step:hover {
@@ -587,7 +587,11 @@
         .flow-content p {
             opacity: 0.9;
             line-height: 1.6;
-            font-size: 1rem;
+            font-size: 0.95rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
         }
 
         /* Process Section */
