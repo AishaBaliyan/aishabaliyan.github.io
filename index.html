@@ -319,42 +319,20 @@
         }
 
         /* Professional connecting lines */
-        .architecture-flow::before {
+        .arch-node:not(:last-child)::after {
             content: '';
             position: absolute;
             top: 50%;
-            left: 0;
-            right: 0;
+            right: -0.5rem;
+            width: 1rem;
             height: 2px;
-            background: linear-gradient(90deg, 
-                transparent 10%, 
-                #00f5ff 10%, 
-                #00f5ff 23%, 
-                transparent 23%, 
-                transparent 27%, 
-                #00f5ff 27%, 
-                #00f5ff 40%, 
-                transparent 40%, 
-                transparent 44%, 
-                #00f5ff 44%, 
-                #00f5ff 57%, 
-                transparent 57%, 
-                transparent 61%, 
-                #00f5ff 61%, 
-                #00f5ff 74%, 
-                transparent 74%, 
-                transparent 78%, 
-                #00f5ff 78%, 
-                #00f5ff 90%, 
-                transparent 90%
-            );
-            z-index: -1;
+            background: #00f5ff;
+            transform: translateY(-50%);
             opacity: 0.6;
         }
 
         /* Animated dots on the connecting line */
-        .architecture-flow::after {
-            content: '';
+        .architecture-flow .flow-dot {
             position: absolute;
             top: 50%;
             left: 0;
@@ -365,21 +343,23 @@
             transform: translateY(-50%);
             animation: flowDot 4s infinite linear;
             box-shadow: 0 0 10px rgba(0, 245, 255, 0.8);
+            z-index: 10;
         }
 
         @keyframes flowDot {
-            0% { left: 10%; opacity: 1; }
-            24% { left: 23%; opacity: 1; }
-            25% { left: 27%; opacity: 0; }
-            26% { left: 27%; opacity: 1; }
-            49% { left: 40%; opacity: 1; }
-            50% { left: 44%; opacity: 0; }
-            51% { left: 44%; opacity: 1; }
-            74% { left: 57%; opacity: 1; }
-            75% { left: 61%; opacity: 0; }
-            76% { left: 61%; opacity: 1; }
-            90% { left: 90%; opacity: 1; }
-            100% { left: 90%; opacity: 0; }
+            0% { left: calc(10% + 25px); opacity: 1; }
+            19% { left: calc(30% - 8px); opacity: 1; }
+            20% { left: calc(30% + 8px); opacity: 0; }
+            21% { left: calc(30% + 8px); opacity: 1; }
+            39% { left: calc(50% - 8px); opacity: 1; }
+            40% { left: calc(50% + 8px); opacity: 0; }
+            41% { left: calc(50% + 8px); opacity: 1; }
+            59% { left: calc(70% - 8px); opacity: 1; }
+            60% { left: calc(70% + 8px); opacity: 0; }
+            61% { left: calc(70% + 8px); opacity: 1; }
+            79% { left: calc(90% - 25px); opacity: 1; }
+            80% { left: calc(90% - 25px); opacity: 0; }
+            100% { left: calc(90% - 25px); opacity: 0; }
         }
 
         .arch-node:last-child::after,
